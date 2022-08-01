@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+  },
+  watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = to.meta.title || 'FACILBAK QR';
+            }
+        },
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+body{
+  background-color: var(--background) !important;
+}
 #app {
+  color: var(--texto);
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.container{
+  max-width: 500px !important;
+}
+img{
+    pointer-events: none;
 }
 </style>
