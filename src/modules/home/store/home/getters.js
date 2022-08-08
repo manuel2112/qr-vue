@@ -9,6 +9,9 @@ export const getValidate = ( state ) => {
 export const getEmpresa = ( state ) => {
     return state.empresa;
 }
+export const getPago = ( state ) => {
+    return state.pagoBool;
+}
 export const getMenu = ( state ) => {
     return state.menu;
 }
@@ -51,6 +54,12 @@ export const getIsClean = ( state ) => {
 export const getShop = ( state ) => {
     return state.shop;
 }
+export const getTipoEntrega = ( state ) => {
+    return state.tipoEntrega;
+}
 export const getTipoPago = ( state ) => {
     return state.tipoPago;
+}
+export const getTipoDetalle = ( state ) => {
+    return state.tipoDetalle;
 }

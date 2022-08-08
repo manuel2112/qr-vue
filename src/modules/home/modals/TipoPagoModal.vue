@@ -17,27 +17,15 @@
                     <h6>SELECCIONA TIPO DE ENTREGA</h6>
                     <div class="btn-group w-100">
                         <button 
+                            v-for=" (tipo,index) in getTipoEntrega " :key="tipo.TIPO_ENTREGA_ID"
                             type="button" 
                             class="btn"
-                            :class= " classBtn01 "
-                            @click="tipoEntrega(1)">
-                            EN LOCAL
-                        </button>
-                        <button 
-                            type="button" 
-                            class="btn"
-                            :class= " classBtn02 "
-                            @click="tipoEntrega(2)">
-                            TAKE AWAY
-                        </button>
-                        <button 
-                            type="button" 
-                            class="btn"
-                            :class= " classBtn03 "
-                            @click="tipoEntrega(3)">
-                            DELIVERY
+                            :class= " classEntrega(++index) "
+                            @click="tipoEntrega(tipo, index)">
+                            {{ tipo.TIPO_ENTREGA_NMB }}
                         </button>
                     </div>
+                    <p class="mt-2 fw-bold" v-if=" infoTipo.entrega ">{{ infoTipo.entrega }}</p>
                 </div>
                 
                 <div class="col-12 mb-4" v-if="idTipoEntrega">
@@ -45,27 +33,15 @@
 
                     <div class="btn-group-vertical w-100">
                         <button 
+                            v-for=" (tipo,index) in getTipoPago " :key="tipo.TIPO_PAGO_ID"
                             type="button" 
                             class="btn"
-                            :class= " classBtn04 "
-                            @click=" tipoPago(1) ">
-                            EFECTIVO <small>CONTRA-ENTREGA</small>
-                        </button>
-                        <button 
-                            type="button" 
-                            class="btn"
-                            :class= " classBtn05 "
-                            @click=" tipoPago(2) ">
-                            TARJETA <small>CONTRA-ENTREGA</small>
-                        </button>
-                        <button 
-                            type="button" 
-                            class="btn"
-                            :class= " classBtn06 "
-                            @click=" tipoPago(3) ">
-                            TRANSFERENCIA
+                            :class= " classPago(++index) "
+                            @click=" tipoPago(tipo, index) ">
+                            {{ tipo.TIPO_PAGO_NMB }}
                         </button>
                     </div>
+                    <p class="mt-2 fw-bold" v-if=" infoTipo.pago ">{{ infoTipo.pago }}</p>
                 </div>
 
                 <div class="col-12">
@@ -106,12 +82,13 @@
       return {
         idTipoEntrega: '',
         idTipoPago: '',
-        classBtn01: 'btn-outline-info',
-        classBtn02: 'btn-outline-info',
-        classBtn03: 'btn-outline-info',
-        classBtn04: 'btn-outline-info',
-        classBtn05: 'btn-outline-info',
-        classBtn06: 'btn-outline-info',
+        infoTipo: {},
+        classBtnEntrega01: 'btn-outline-info',
+        classBtnEntrega02: 'btn-outline-info',
+        classBtnEntrega03: 'btn-outline-info',
+        classBtnPago01: 'btn-outline-info',
+        classBtnPago02: 'btn-outline-info',
+        classBtnPago03: 'btn-outline-info',
         btnNext: {
             txt: 'SIGUIENTE <i class="fa fa-arrow-right"></i>',
             disabled: true
@@ -130,61 +107,84 @@
         }
     },
     computed:{
-        ...mapGetters('home',['getOpenModalTipoPago']),
+        ...mapGetters('home',['getOpenModalTipoPago', 'getTipoEntrega', 'getTipoPago']),
     },
     methods: {
         urlSite,
         formatDinero,
         nl2br,
         onHidden(){
-          $('#showModalTipoPago').modal('hide');
-          this.$store.commit('home/setOpenModalTipoPago', false);
+            this.infoTipo = {};
+            $('#showModalTipoPago').modal('hide');
+            this.$store.commit('home/setOpenModalTipoPago', false);
         },
         back(){
             this.onHidden();
             this.$store.commit('home/setOpenModalShop', true);
         },
-        tipoEntrega( value ){
-            this.idTipoEntrega = value;
-            this.focusTipoEntrega(value);
+        classEntrega(value){
+            switch(value) {
+                case 1:
+                    return this.classBtnEntrega01;
+                case 2:
+                    return this.classBtnEntrega02;
+                case 3:
+                    return this.classBtnEntrega03;
+            }
+        },
+        tipoEntrega( value, i ){
+            this.idTipoEntrega      = value.TIPO_ENTREGA_ID;
+            this.infoTipo.entrega   = value.TIPO_ENTREGA_EMPRESA_DETALLE;
+            this.focusTipoEntrega(i);
         },
         focusTipoEntrega(value){
 
-            this.classBtn01 = 'btn-outline-info';
-            this.classBtn02 = 'btn-outline-info';
-            this.classBtn03 = 'btn-outline-info';
+            this.classBtnEntrega01 = 'btn-outline-info';
+            this.classBtnEntrega02 = 'btn-outline-info';
+            this.classBtnEntrega03 = 'btn-outline-info';
 
             switch(value) {
                 case 1:
-                    this.classBtn01 = 'btn-info text-white';
+                    this.classBtnEntrega01 = 'btn-info text-white';
                     break;
                 case 2:
-                    this.classBtn02 = 'btn-info text-white';
+                    this.classBtnEntrega02 = 'btn-info text-white';
                     break;
                 case 3:
-                    this.classBtn03 = 'btn-info text-white';
+                    this.classBtnEntrega03 = 'btn-info text-white';
                     break;
             }
         },
-        tipoPago( value ){
-            this.idTipoPago = value;
-            this.focusTipoPago(value);
+        classPago(value){
+            switch(value) {
+                case 1:
+                    return this.classBtnPago01;
+                case 2:
+                    return this.classBtnPago02;
+                case 3:
+                    return this.classBtnPago03;
+            }
+        },
+        tipoPago( value, i ){
+            this.idTipoPago      = value.TIPO_PAGO_ID;
+            this.infoTipo.pago   = value.TIPO_PAGO_EMPRESA_DETALLE;
+            this.focusTipoPago(i);
         },
         focusTipoPago(value){
 
-            this.classBtn04 = 'btn-outline-info';
-            this.classBtn05 = 'btn-outline-info';
-            this.classBtn06 = 'btn-outline-info';
+            this.classBtnPago01 = 'btn-outline-info';
+            this.classBtnPago02 = 'btn-outline-info';
+            this.classBtnPago03 = 'btn-outline-info';
 
             switch(value) {
                 case 1:
-                    this.classBtn04 = 'btn-info text-white';
+                    this.classBtnPago01 = 'btn-info text-white';
                     break;
                 case 2:
-                    this.classBtn05 = 'btn-info text-white';
+                    this.classBtnPago02 = 'btn-info text-white';
                     break;
                 case 3:
-                    this.classBtn06 = 'btn-info text-white';
+                    this.classBtnPago03 = 'btn-info text-white';
                     break;
             }
 
@@ -192,7 +192,7 @@
         },
         goDatos(){
             const value = { 'entrega': this.idTipoEntrega ,'pago': this.idTipoPago };
-            this.$store.commit('home/setTipoPago', value);
+            this.$store.commit('home/setTipoDetalle', value);
             this.$store.commit('home/setOpenModalTipoPago', false);
             this.$store.commit('home/setOpenModalDatosPago', true);
         },

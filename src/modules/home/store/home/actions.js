@@ -9,6 +9,7 @@ export const getMenuApi = async ({ commit }, data) => {
     const resp = await menuApi.post('/apirest',{
                     slug: data
                 });
+    console.log(resp.data);
 
     commit('setMenu',resp.data);
     commit('setRedes');

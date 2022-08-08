@@ -7,8 +7,11 @@ export const setMenu = ( state, data ) => {
 
     if( !data.error){
         state.empresa       = data.info.empresa;
+        state.pagoBool      = data.info.empresa.EMPRESA_PAGO == 1 ? true : false;
         state.menu          = data.info.menu;
         state.validate.menu = true;
+        state.tipoPago      = data.info.tipoPago;
+        state.tipoEntrega   = data.info.tipoEntrega;
         document.title      = state.empresa.EMPRESA_NOMBRE;
         
         //OBJ LOGO
@@ -68,7 +71,7 @@ export const setCleanShop = ( state ) => {
     state.isShop    = false;
     state.isClean   = true;
 }
-export const setTipoPago = ( state, value ) => {
-    state.tipoPago.entrega  = value.entrega;
-    state.tipoPago.pago     = value.pago;
+export const setTipoDetalle = ( state, value ) => {
+    state.tipoDetalle.entrega  = value.entrega;
+    state.tipoDetalle.pago     = value.pago;
 }

@@ -1,6 +1,7 @@
 
 export default () => ({
     empresa: null,
+    pagoBool: false,
     menu: null,
     producto: {},
     validate: {
@@ -20,6 +21,8 @@ export default () => ({
     vvSelected: {},
     shop:[],
     tipoPago:{},
+    tipoEntrega:{},
+    tipoDetalle: {},
     isShop: false,
     isClean: false
 })

@@ -55,7 +55,8 @@
                       <button
                         type="button"
                         class="btn btn-sm btn-outline-info"
-                        @click="addCarrito(getProducto,valor)">
+                        @click="addCarrito(getProducto,valor)"
+                        v-if="getPago">
                         <i class="fa fa-shopping-cart"></i>
                       </button>
                     </dd>
@@ -96,7 +97,7 @@
         }
     },
     computed:{        
-        ...mapGetters('home',['getOpenModalProducto', 'getProducto'])
+        ...mapGetters('home',['getOpenModalProducto', 'getProducto', 'getPago'])
     },
     methods: {
         urlSite,

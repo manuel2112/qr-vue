@@ -43,13 +43,15 @@
                             @input="validateEmail">
                         <label for="floatingInput">*EMAIL <small class="text-danger" v-if="error.email">NO VÁLIDO</small></label>
                     </div>
-                    <div class="form-floating mb-2">
-                        <input 
+                    <div class="form-floating mb-2" v-if=" getTipoDetalle.entrega == 1 ">
+                        <input
                             type="text" 
                             class="form-control" 
                             placeholder="DIRECCIÓN"
-                            v-model.trim="datos.direccion">
-                        <label for="floatingInput">DIRECCIÓN</label>
+                            v-model.trim="datos.direccion"
+                            @input=" validateDireccion "
+                            >
+                        <label for="floatingInput">*DIRECCIÓN</label>
                     </div>
                     <div class="form-floating mb-2">
                         <textarea 
@@ -111,11 +113,12 @@
             if( newVal ){
                 $('#showModalDatosPago').modal({backdrop:'static', keyboard:false});
                 $('#showModalDatosPago').modal('show');
+                this.validate.direccion = this.getTipoDetalle.entrega == 1 ? false : true;
             }
         }
     },
     computed:{
-        ...mapGetters('home',['getOpenModalDatosPago','getTipoPago','getShop']),
+        ...mapGetters('home',['getOpenModalDatosPago','getTipoDetalle','getShop']),
     },
     methods: {
         urlSite,
@@ -134,7 +137,8 @@
         validateDatos(){
             if( this.validate.nombre && 
                 this.validate.celular &&
-                this.validate.email ){
+                this.validate.email &&
+                this.validate.direccion ){
                     this.btnEnd.disabled = false;
             }else{
                 this.btnEnd.disabled = true;
@@ -177,10 +181,19 @@
             }
             this.validateDatos();
         },
+        validateDireccion(){
+            this.datos.direccion= this.datos.direccion.toUpperCase();
+            if( this.datos.direccion ){
+                this.validate.direccion = true;
+            }else{
+                this.validate.direccion = false;
+            }
+            this.validateDatos();
+        },
         finalizar(){
             console.log(this.datos)
-            console.log(this.getTipoPago)
             console.log(this.getShop)
+            console.log(this.getTipoDetalle)
         }
     }
 
