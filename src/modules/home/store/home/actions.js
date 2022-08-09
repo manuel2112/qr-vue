@@ -9,7 +9,6 @@ export const getMenuApi = async ({ commit }, data) => {
     const resp = await menuApi.post('/apirest',{
                     slug: data
                 });
-    console.log(resp.data);
 
     commit('setMenu',resp.data);
     commit('setRedes');
@@ -20,5 +19,16 @@ export const getMenuApi = async ({ commit }, data) => {
             idEmpresa: resp.data.info.empresa.EMPRESA_ID
         });
     }
+
+}
+
+export const insertPedidoApi = async ({ commit }, value) => {
+
+    const resp = await menuApi.post('/apirest/pedido',{
+                    value
+                });
+    console.log(resp.data.info);
+
+    commit('setResPedido',resp.data);
 
 }

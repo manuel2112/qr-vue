@@ -92,7 +92,7 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+  import { mapActions, mapGetters } from "vuex";
   import { urlSite, formatDinero, nl2br, isCel, isEmail } from "@/modules/shared/helpers/helpers"
 
   export default {
@@ -106,6 +106,7 @@
             txt: 'FINALIZAR',
             disabled: true
         },
+        dataApi: {}
       };
     },
     watch: {
@@ -126,6 +127,7 @@
         nl2br,
         isCel,
         isEmail,
+        ...mapActions('home',['insertPedidoApi']),
         onHidden(){
           $('#showModalDatosPago').modal('hide');
           this.$store.commit('home/setOpenModalDatosPago', false);
@@ -191,9 +193,13 @@
             this.validateDatos();
         },
         finalizar(){
-            console.log(this.datos)
-            console.log(this.getShop)
-            console.log(this.getTipoDetalle)
+            this.dataApi.persona = this.datos;
+            this.dataApi.shop    = this.getShop;
+            this.dataApi.detalle = this.getTipoDetalle;
+            this.insertPedidoApi(this.dataApi);
+            // console.log(this.datos)
+            // console.log(this.getShop)
+            // console.log(this.getTipoDetalle)
         }
     }
 

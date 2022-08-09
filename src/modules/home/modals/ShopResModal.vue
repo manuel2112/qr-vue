@@ -159,6 +159,7 @@
             }
         },
         goTipoPago(){
+            this.$store.commit('home/setTotal', this.total);
             this.$store.commit('home/setOpenModalShop', false);
             this.$store.commit('home/setOpenModalTipoPago', true);
         },

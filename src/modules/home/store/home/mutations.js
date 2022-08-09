@@ -23,7 +23,6 @@ export const setMenu = ( state, data ) => {
     }
     
 }
-
 export const setRedes = ( state ) => {
 
     state.dataRedes.fono         = state.empresa.EMPRESA_FONO;
@@ -74,4 +73,15 @@ export const setCleanShop = ( state ) => {
 export const setTipoDetalle = ( state, value ) => {
     state.tipoDetalle.entrega  = value.entrega;
     state.tipoDetalle.pago     = value.pago;
+}
+export const setTotal = ( state, value ) => {
+    state.tipoDetalle.total  = value;
+}
+
+export const setResPedido = ( state, value ) => {
+
+    console.log('mutation');
+
+    // state.dataRedes.fono         = state.empresa.EMPRESA_FONO;
+    
 }
