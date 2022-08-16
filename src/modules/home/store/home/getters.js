@@ -51,6 +51,9 @@ export const getIsShop = ( state ) => {
 export const getIsClean = ( state ) => {
     return state.isClean;
 }
+export const getIsTipoData = ( state ) => {
+    return state.isTipoData;
+}
 export const getShop = ( state ) => {
     return state.shop;
 }

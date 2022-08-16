@@ -1,5 +1,6 @@
 
 import menuApi from "@/api/menuApi";
+import Swal from 'sweetalert2';
 // export const myActions = async ({ commit }) => {
 
 // }
@@ -24,11 +25,21 @@ export const getMenuApi = async ({ commit }, data) => {
 
 export const insertPedidoApi = async ({ commit }, value) => {
 
+    new Swal({
+        title: "Espere por favor",
+        allowOutsideClick: false
+    });
+    Swal.showLoading();
+
     const resp = await menuApi.post('/apirest/pedido',{
                     value
                 });
-    console.log(resp.data.info);
-
-    commit('setResPedido',resp.data);
+    
+    if( resp.data.info ){
+        commit('setResetPedido');
+        Swal.fire('Enviado', 'Tu pedido ha sido realizado con éxito. Pronto te contactaremos', 'success');
+    }else{
+        Swal.fire('Error', 'Se ha producido un error, favor volver a intentar', 'error');
+    }
 
 }

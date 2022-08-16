@@ -83,6 +83,8 @@
         idTipoEntrega: '',
         idTipoPago: '',
         infoTipo: {},
+        tipoEntregaMdl: {},
+        tipoPagoMdl: {},
         classBtnEntrega01: 'btn-outline-info',
         classBtnEntrega02: 'btn-outline-info',
         classBtnEntrega03: 'btn-outline-info',
@@ -100,6 +102,7 @@
             if( newVal ){
                 $('#showModalTipoPago').modal({backdrop:'static', keyboard:false});
                 $('#showModalTipoPago').modal('show');
+                this.resetData(this.getIsTipoData);
             }
             else{
                 $('#showModalTipoPago').modal('hide');
@@ -107,12 +110,29 @@
         }
     },
     computed:{
-        ...mapGetters('home',['getOpenModalTipoPago', 'getTipoEntrega', 'getTipoPago']),
+        ...mapGetters('home',['getOpenModalTipoPago', 'getTipoEntrega', 'getTipoPago', 'getIsTipoData']),
     },
     methods: {
         urlSite,
         formatDinero,
         nl2br,
+        resetData(value){
+            if( !value ){
+                this.idTipoEntrega      = '';
+                this.idTipoPago         = '';
+                this.infoTipo           = {};
+                this.tipoEntregaMdl     = {};
+                this.tipoPagoMdl        = {};
+                this.classBtnEntrega01  = 'btn-outline-info';
+                this.classBtnEntrega02  = 'btn-outline-info';
+                this.classBtnEntrega03  = 'btn-outline-info';
+                this.classBtnPago01     = 'btn-outline-info';
+                this.classBtnPago02     = 'btn-outline-info';
+                this.classBtnPago03     = 'btn-outline-info';
+                this.btnNext.disabled   = true;
+                console.log('Reset Realizado')
+            }            
+        },
         onHidden(){
             this.infoTipo = {};
             $('#showModalTipoPago').modal('hide');
@@ -133,8 +153,10 @@
             }
         },
         tipoEntrega( value, i ){
+            this.tipoEntregaMdl     = value;
             this.idTipoEntrega      = value.TIPO_ENTREGA_ID;
             this.infoTipo.entrega   = value.TIPO_ENTREGA_EMPRESA_DETALLE;
+            this.$store.commit('home/setIsTipoData', true);
             this.focusTipoEntrega(i);
         },
         focusTipoEntrega(value){
@@ -166,6 +188,7 @@
             }
         },
         tipoPago( value, i ){
+            this.tipoPagoMdl     = value;
             this.idTipoPago      = value.TIPO_PAGO_ID;
             this.infoTipo.pago   = value.TIPO_PAGO_EMPRESA_DETALLE;
             this.focusTipoPago(i);
@@ -191,7 +214,7 @@
             this.btnNext.disabled = false;
         },
         goDatos(){
-            const value = { 'entrega': this.idTipoEntrega ,'pago': this.idTipoPago };
+            const value = { 'entrega': this.tipoEntregaMdl ,'pago': this.tipoPagoMdl };
             this.$store.commit('home/setTipoDetalle', value);
             this.$store.commit('home/setOpenModalTipoPago', false);
             this.$store.commit('home/setOpenModalDatosPago', true);

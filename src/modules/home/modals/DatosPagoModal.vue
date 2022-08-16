@@ -43,7 +43,7 @@
                             @input="validateEmail">
                         <label for="floatingInput">*EMAIL <small class="text-danger" v-if="error.email">NO VÁLIDO</small></label>
                     </div>
-                    <div class="form-floating mb-2" v-if=" getTipoDetalle.entrega == 1 ">
+                    <div class="form-floating mb-2" v-if=" isDireccion ">
                         <input
                             type="text" 
                             class="form-control" 
@@ -106,15 +106,31 @@
             txt: 'FINALIZAR',
             disabled: true
         },
-        dataApi: {}
+        dataApi: {},
+        isDireccion: false
       };
     },
     watch: {
         getOpenModalDatosPago(newVal,oldVal){
             if( newVal ){
                 $('#showModalDatosPago').modal({backdrop:'static', keyboard:false});
-                $('#showModalDatosPago').modal('show');
-                this.validate.direccion = this.getTipoDetalle.entrega == 1 ? false : true;
+                $('#showModalDatosPago').modal('show');                
+
+                if( this.getTipoDetalle.entrega.TIPO_ENTREGA_ID == 1 ){
+                    this.isDireccion = true;
+                    if( this.datos.direccion ){
+                        this.validateDireccion();
+                    }else{
+                        this.validate.direccion = false;                        
+                        this.validateDatos();
+                    }
+                    
+                }else{
+                    this.validate.direccion = true;
+                    this.isDireccion = false;
+                    this.validateDatos();
+                }
+                
             }
         }
     },
@@ -184,7 +200,7 @@
             this.validateDatos();
         },
         validateDireccion(){
-            this.datos.direccion= this.datos.direccion.toUpperCase();
+            this.datos.direccion = this.datos.direccion.toUpperCase();
             if( this.datos.direccion ){
                 this.validate.direccion = true;
             }else{
@@ -197,9 +213,6 @@
             this.dataApi.shop    = this.getShop;
             this.dataApi.detalle = this.getTipoDetalle;
             this.insertPedidoApi(this.dataApi);
-            // console.log(this.datos)
-            // console.log(this.getShop)
-            // console.log(this.getTipoDetalle)
         }
     }
 

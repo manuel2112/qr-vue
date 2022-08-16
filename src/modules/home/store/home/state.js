@@ -24,5 +24,6 @@ export default () => ({
     tipoEntrega:{},
     tipoDetalle: {},
     isShop: false,
-    isClean: false
+    isClean: false,
+    isTipoData: false
 })

@@ -60,6 +60,9 @@ export const setOpenModalDatosPago = ( state, value ) => {
 export const setVVSelected = ( state, value ) => {
     state.vvSelected = value;
 }
+export const setIsTipoData = ( state, value ) => {
+    state.isTipoData = value;
+}
 export const setAddShop = ( state, value ) => {
     state.shop      = value;
     state.isShop    = true;
@@ -71,17 +74,21 @@ export const setCleanShop = ( state ) => {
     state.isClean   = true;
 }
 export const setTipoDetalle = ( state, value ) => {
-    state.tipoDetalle.entrega  = value.entrega;
-    state.tipoDetalle.pago     = value.pago;
+    state.tipoDetalle.entrega  		= value.entrega;
+    state.tipoDetalle.pago     		= value.pago;
+    state.tipoDetalle.idEmpresa     = state.empresa.EMPRESA_ID;
 }
 export const setTotal = ( state, value ) => {
     state.tipoDetalle.total  = value;
 }
 
-export const setResPedido = ( state, value ) => {
+export const setResetPedido = ( state ) => {
 
-    console.log('mutation');
-
-    // state.dataRedes.fono         = state.empresa.EMPRESA_FONO;
+    state.tipoDetalle           = {};
+    state.shop                  = [];
+    state.openModalDatosPago    = false;
+    state.isShop                = false;
+    state.isTipoData            = false;
+    $('#showModalDatosPago').modal('hide');
     
 }
