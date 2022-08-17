@@ -130,7 +130,6 @@
                 this.classBtnPago02     = 'btn-outline-info';
                 this.classBtnPago03     = 'btn-outline-info';
                 this.btnNext.disabled   = true;
-                console.log('Reset Realizado')
             }            
         },
         onHidden(){

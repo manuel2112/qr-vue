@@ -83,12 +83,11 @@ export const setTotal = ( state, value ) => {
 }
 
 export const setResetPedido = ( state ) => {
-
     state.tipoDetalle           = {};
     state.shop                  = [];
     state.openModalDatosPago    = false;
     state.isShop                = false;
     state.isTipoData            = false;
+    state.isClean               = true;
     $('#showModalDatosPago').modal('hide');
-    
 }

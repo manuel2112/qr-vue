@@ -108,8 +108,6 @@
           $('#showModal').modal('hide');
         },
         addCarrito(producto,valor){
-          // console.log(producto)
-          // console.log(valor)
           const value = {'producto': producto ,'valor': valor};
           this.$store.commit('home/setVVSelected', value);
           this.$store.commit('home/setOpenModalAddShop', true);
@@ -125,38 +123,38 @@
 </script>
 
 <style scoped lang="scss">
-.modal-content{
-    background-color: var(--background);
-}
-h5.modal-title{
+  .modal-content{
+      background-color: var(--background);
+  }
+  h5.modal-title{
+      color: var(--texto);
+  }
+  .modal-title button i{
+      font-size: 3rem;
+  }
+  p.detalle{
+      color: var(--texto);
+      font-size: 0.9rem;
+      text-align: justify;
+  }
+  dl {
+    width: 100%;
     color: var(--texto);
-}
-.modal-title button i{
-    font-size: 3rem;
-}
-p.detalle{
-    color: var(--texto);
-    font-size: 0.9rem;
-    text-align: justify;
-}
-dl {
-  width: 100%;
-  color: var(--texto);
-  font-weight: bold;
-}
-dt {
-  float: left; 
-  width: 60%; 
-  overflow: hidden; 
-  white-space: nowrap;
-}
-dd { 
-  float: left; 
-  width: 40%; 
-  overflow: hidden;
-  text-align: right;
-}
-dt:after { 
-  content: " ................................................................." 
-}
+    font-weight: bold;
+  }
+  dt {
+    float: left; 
+    width: 60%; 
+    overflow: hidden; 
+    white-space: nowrap;
+  }
+  dd { 
+    float: left; 
+    width: 40%; 
+    overflow: hidden;
+    text-align: right;
+  }
+  dt:after { 
+    content: " ................................................................." 
+  }
 </style>

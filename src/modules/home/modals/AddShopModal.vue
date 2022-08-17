@@ -89,7 +89,7 @@
         getIsClean(newVal,oldVal){
             if( newVal ){
               this.addShopRes = [];
-            }          
+            }
         },
     },
     computed:{        
@@ -147,7 +147,6 @@
             }
           );
         },
-
         addShop(){
           this.processShop();
           this.toast();
